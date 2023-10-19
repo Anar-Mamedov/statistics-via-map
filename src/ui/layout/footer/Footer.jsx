@@ -34,15 +34,19 @@ export default function Footer() {
         backgroundColor: "rgba(249, 249, 249, 0.95)", // Optional: to give a background color
         boxShadow: "0px -2px 10px rgba(0, 0, 0, 0.1)", // Optional: to give a slight shadow effect
       }}>
-      <Text>Mail: {settings.mail}</Text>
+      <Text style={{ fontSize: "11px" }}>Mail: {settings.mail}</Text>
       <Space>
         {footerMenu.map((menu) => (
-          <Button type="text" key={menu.id} onClick={() => console.log("Button clicked:", menu.label)}>
+          <Button
+            style={{ fontSize: "11px" }}
+            type="text"
+            key={menu.id}
+            onClick={() => console.log("Button clicked:", menu.label)}>
             {menu.label}
           </Button>
         ))}
       </Space>
-      <Text>{settings.copyright}</Text>
+      <Text style={{ fontSize: "11px" }}>{settings.copyright}</Text>
     </div>
   );
 }

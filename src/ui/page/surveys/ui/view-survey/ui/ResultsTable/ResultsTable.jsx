@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Table } from "antd";
+import { Table, Typography } from "antd";
+
+const { Title } = Typography;
 
 export default function ResultsTable() {
   const [tableData, setTableData] = useState({
@@ -21,7 +23,7 @@ export default function ResultsTable() {
 
   return (
     <div>
-      <h2>{tableData.title}</h2>
+      <Title level={4}>{tableData.title}</Title>
       <Table
         dataSource={tableData.data}
         columns={tableData.columns.map((col) => ({
