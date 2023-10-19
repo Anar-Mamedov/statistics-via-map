@@ -1,3 +1,31 @@
+import { Col, Row } from "antd";
+import ThematicMapPage from "../map/ThematicMapPage";
+import Descending from "./ui/Descending/Descending";
+import Ascending from "./ui/Ascending/Ascending";
+import PieChart from "./ui/PieChart/PieChart";
+import ResultsTable from "./ui/ResultsTable/ResultsTable";
+
 export default function ViewSurvey() {
-  return null;
+  return (
+    <Row style={{ padding: "0px 0px", position: "absolute", top: "50px", width: "100%" }}>
+      <Col span={17} style={{ width: "100%", height: "90vh", padding: "10px" }}>
+        <ThematicMapPage />
+      </Col>
+      <Col
+        span={7}
+        style={{
+          padding: "0px 20px 50px 20px",
+          width: "600px",
+          display: "flex",
+          flexDirection: "column",
+          height: "90vh", // Set a fixed height
+          overflowY: "auto", // Enable vertical scrolling
+        }}>
+        <Descending />
+        <Ascending />
+        <PieChart />
+        <ResultsTable />
+      </Col>
+    </Row>
+  );
 }
