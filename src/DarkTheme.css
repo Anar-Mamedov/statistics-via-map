@@ -8,6 +8,16 @@ body.light {
 body.dark {
   background-color: #333333;
   color: #ffffff;
+  --svg-icon-color: #fff; /* default color for dark mode */
+  --svg-icon-hover-color: #ccc; /* hover color for dark mode */
+  --btn-active-bg: #333; /* background color for dark mode active state */
+  --btn-active-text-color: #fff; /* text color for dark mode active state */
+  --btn-focus-bg: #444; /* background color for dark mode focus state */
+  --btn-focus-text-color: #fff; /* text color for dark mode focus state */
+  --field-bg: #444; /* background color for fields in dark mode */
+  --field-text-color: #fff; /* text color for fields in dark mode */
+  --label-color: #aaa; /* label color in dark mode */
+  --border-color: #666; /* border color for fields in dark mode */
 }
 
 .header-light {
@@ -38,12 +48,165 @@ body.dark .ant-menu-item {
 
 .ant-btn:hover,
 .ant-btn:focus {
-  background-color: #fff; /* This is the default background color */
-  border-color: #d9d9d9; /* This is the default border color */
+  background-color: #fff !important; /* This is the default background color */
+  border-color: #d9d9d9 !important; /* This is the default border color */
 }
 
 .ant-btn-icon-only:hover,
 .ant-btn-icon-only:focus {
-  background-color: #fff; /* Adjust as needed */
-  border-color: #d9d9d9; /* Adjust as needed */
+  background-color: #fff !important; /* Adjust as needed */
+  border-color: #d9d9d9 !important; /* Adjust as needed */
 }
+
+.ant-btn:hover .anticon svg,
+.ant-btn:focus .anticon svg {
+  fill: #333; /* Change this to your desired icon color on hover */
+}
+
+.ant-btn-primary:hover .anticon svg,
+.ant-btn-primary:focus .anticon svg {
+  fill: #fff; /* Change this to your desired icon color on hover for primary buttons */
+}
+
+/* Change color for custom SVG icon on hover for default buttons */
+.ant-btn:hover .custom-svg-icon path,
+.ant-btn:focus .custom-svg-icon path {
+  fill: #333; /* Change this to your desired icon color on hover */
+}
+
+/* Change color for custom SVG icon on hover for primary buttons */
+.ant-btn-primary:hover .custom-svg-icon path,
+.ant-btn-primary:focus .custom-svg-icon path {
+  fill: #fff; /* Change this to your desired icon color on hover for primary buttons */
+}
+
+/* Define default (light mode) colors */
+:root {
+  --svg-icon-color: #333; /* default color for light mode */
+  --svg-icon-hover-color: #000; /* hover color for light mode */
+  --btn-active-bg: #e6e6e6; /* default background color for light mode active state */
+  --btn-active-text-color: #333; /* default text color for light mode active state */
+  --btn-focus-bg: #f0f0f0; /* default background color for light mode focus state */
+  --btn-focus-text-color: #333; /* default text color for light mode focus state */
+  --field-bg: #fff; /* default background color for fields in light mode */
+  --field-text-color: #333; /* default text color for fields in light mode */
+  --label-color: #666; /* default label color in light mode */
+  --border-color: #d9d9d9; /* default border color for fields in light mode */
+}
+
+/* Apply color using CSS variable */
+.custom-svg-icon path {
+  fill: var(--svg-icon-color);
+}
+
+/* Change color on hover */
+.ant-btn:hover .custom-svg-icon path,
+.ant-btn:focus .custom-svg-icon path {
+  fill: var(--svg-icon-hover-color);
+}
+
+/* Apply active state styles using CSS variables */
+.ant-btn:active {
+  background-color: var(--btn-active-bg);
+  color: var(--btn-active-text-color);
+}
+
+/* If you have SVG icons inside the button, you might also want to adjust their colors */
+.ant-btn:active .custom-svg-icon path {
+  fill: var(--btn-active-text-color);
+}
+
+/* Apply focus state styles using CSS variables */
+.ant-btn:focus {
+  background-color: var(--btn-focus-bg) !important;
+  color: var(--btn-focus-text-color) !important;
+  outline: none !important; /* Optional: remove the default outline */
+}
+
+/* If you have SVG icons inside the button, you might also want to adjust their colors */
+.ant-btn:focus .custom-svg-icon path {
+  fill: var(--btn-focus-text-color) !important;
+}
+
+/* Apply styles using CSS variables */
+.ant-input,
+.ant-select-selector,
+.ant-input-textarea {
+  background-color: var(--field-bg) !important;
+  color: var(--field-text-color) !important;
+  border-color: var(--label-color) !important;
+}
+
+.ant-form-item-label > label {
+  color: var(--label-color) !important;
+}
+
+body.dark .ant-input-affix-wrapper {
+  background-color: #444 !important;
+}
+
+body.dark .ant-table {
+  background-color: #444 !important;
+}
+
+body.dark .ant-table-thead > tr > th {
+  background-color: #444 !important;
+  color: #fff !important;
+}
+
+body.dark .ant-table-tbody > tr > td {
+  background-color: #444 !important;
+  color: #fff !important;
+}
+
+body.dark .ant-table-tbody > tr.ant-table-row:hover > td {
+  background-color: #555 !important;
+}
+
+body.dark .ant-pagination-item {
+  background-color: #444 !important;
+  border-color: #333 !important;
+}
+
+body.dark .ant-pagination-item a {
+  color: #fff !important;
+}
+
+body.dark .ant-pagination-item-active {
+  background-color: #555 !important;
+  border-color: #444 !important;
+}
+
+body.dark .ant-pagination-prev .ant-pagination-item-link,
+body.dark .ant-pagination-next .ant-pagination-item-link {
+  color: #fff !important;
+  border-color: #333 !important;
+}
+
+body.dark .ant-pagination-jump-prev .ant-pagination-item-container .ant-pagination-item-link-icon,
+body.dark .ant-pagination-jump-next .ant-pagination-item-container .ant-pagination-item-link-icon {
+  color: #fff !important;
+}
+
+body.dark .custom-button {
+  background-color: #444 !important; /* Adjust to your desired dark mode background color */
+  color: #fff !important; /* Adjust to your desired dark mode text color */
+  border-color: #333 !important; /* Adjust to your desired dark mode border color */
+}
+
+body.dark .custom-button .anticon,
+body.dark .custom-button span {
+  color: #fff !important; /* Adjust to your desired dark mode icon color */
+}
+/* Hover state styles for dark mode */
+body.dark .custom-button:hover {
+  background-color: #555 !important; /* Adjust to your desired hover background color */
+  color: #eee !important; /* Adjust to your desired hover text color */
+}
+
+body.dark .custom-button:hover .anticon,
+body.dark .custom-button:hover span {
+  color: #eee !important; /* Adjust to your desired hover icon color */
+}
+
+/* If you have other Ant Design components, you can add similar styles for them */

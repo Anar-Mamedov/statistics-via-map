@@ -57,6 +57,7 @@ export default function SurveysPage() {
         }}>
         <Link to="/newsurvey">
           <Button
+            className="custom-button"
             style={{
               width: "350px",
               height: "198px",
