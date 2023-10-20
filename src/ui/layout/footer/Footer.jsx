@@ -1,3 +1,5 @@
+// Footer.jsx
+
 import React, { useState, useEffect } from "react";
 import { Button, Space, Typography } from "antd";
 import settingsData from "../../../../public/data/settings.json";
