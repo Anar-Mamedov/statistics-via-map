@@ -1,51 +1,47 @@
+// SurveysPage.jsx
+
 import { Link } from "react-router-dom";
 import { Card, Col, Row, Typography, Spin, Button } from "antd";
 import { useEffect, useState, useRef, useCallback } from "react";
 import { ExportOutlined, HeartFilled, LikeFilled, PlusOutlined } from "@ant-design/icons";
 import cardData from "../../../../public/data/1-main-page/card_json.json"; // Import the JSON data directly
+import { useSelector } from "react-redux";
 
 const { Text } = Typography;
 
 export default function SurveysPage() {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [hasMore, setHasMore] = useState(true);
-  const [currentChunkIndex, setCurrentChunkIndex] = useState(0);
-  const CHUNK_SIZE = 10;
+  const INITIAL_COUNT = 15;
+  const CHUNK_SIZE = 5;
+  const surveys = useSelector((state) => state.surveys);
+  const combinedData = [...cardData, ...surveys].reverse(); // Combine and reverse the data
+
+  const [data, setData] = useState(combinedData.slice(0, INITIAL_COUNT));
+  const [currentCount, setCurrentCount] = useState(INITIAL_COUNT);
 
   const observer = useRef();
+
   const lastCardRef = useCallback(
     (node) => {
-      if (loading) return;
       if (observer.current) observer.current.disconnect();
+
       observer.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && hasMore) {
+        if (entries[0].isIntersecting && currentCount < combinedData.length) {
           fetchData();
         }
       });
+
       if (node) observer.current.observe(node);
     },
-    [loading, hasMore]
+    [currentCount]
   );
 
   const fetchData = () => {
-    setLoading(true);
     setTimeout(() => {
-      const start = currentChunkIndex * CHUNK_SIZE;
-      const end = start + CHUNK_SIZE;
-      const chunk = cardData.slice(start, end);
-      if (chunk.length < CHUNK_SIZE) {
-        setHasMore(false);
-      }
-      setData((prevData) => [...prevData, ...chunk]);
-      setCurrentChunkIndex((prevIndex) => prevIndex + 1);
-      setLoading(false);
-    }, 1000);
+      const nextData = combinedData.slice(currentCount, currentCount + CHUNK_SIZE);
+      setData((prevData) => [...prevData, ...nextData]);
+      setCurrentCount((prevCount) => prevCount + CHUNK_SIZE);
+    }, 1000); // 1000ms delay (1 second)
   };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
 
   return (
     <div style={{ padding: "60px 0 50px 0" }}>
@@ -75,6 +71,7 @@ export default function SurveysPage() {
             Add New Survay
           </Button>
         </Link>
+
         {data.map((item, index) => (
           <div style={{ borderRadius: "5px" }} key={item.id} ref={index === data.length - 1 ? lastCardRef : null}>
             <Link to={`/viewsurvey/`}>
@@ -127,8 +124,7 @@ export default function SurveysPage() {
           </div>
         ))}
       </Row>
-
-      {loading && hasMore && (
+      {currentCount < combinedData.length && (
         <div style={{ display: "flex", justifyContent: "center", marginTop: "20px", marginBottom: "50px" }}>
           <Spin tip="Loading..." />
         </div>

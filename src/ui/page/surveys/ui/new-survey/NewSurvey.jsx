@@ -1,8 +1,12 @@
+// NewSurvey.jsx
+
 import React, { useState, useEffect } from "react";
 import { Input, Form, Select, Button, Table, ColorPicker, Space, Col, Row } from "antd";
 import { DeleteFilled, EditFilled } from "@ant-design/icons";
 import ThematicMapPage from "../map/ThematicMapPage";
 import formDataJson from "../../../../../../public/data/2-create-form/form-settings.json"; // Directly import the JSON data
+import { useDispatch } from "react-redux";
+import { add } from "../../../../../../src/store/redux/slice/survey/surveySlice";
 
 export default function NewSurvey() {
   const [formData, setFormData] = useState(formDataJson); // Use the imported JSON data directly
@@ -11,6 +15,30 @@ export default function NewSurvey() {
   const [currentText, setCurrentText] = useState("");
   const [validationError, setValidationError] = useState({ text: false, color: false });
   const [isMinimized, setIsMinimized] = useState(window.innerWidth <= 768); // Assuming 768px as the breakpoint for mobile screens
+  const dispatch = useDispatch();
+  const [titleInput, setTitleInput] = useState("");
+  const [subtitleInput, setSubtitleInput] = useState("");
+
+  const predefinedPhotos = [
+    "https://i.ibb.co/Q8Mwpvr/animg3.png",
+    "https://i.ibb.co/SxKpgYY/animg2.png",
+    "https://i.ibb.co/Q8Mwpvr/animg3.png",
+    "https://i.ibb.co/0qQmHw4/animg4.png",
+  ];
+
+  const handleSave = () => {
+    const randomPhoto = predefinedPhotos[Math.floor(Math.random() * predefinedPhotos.length)];
+    // Here, you'll gather the data from the form.
+    // For demonstration purposes, I'm using a static example:
+    const newSurveyData = {
+      id: Date.now(), // unique id for the survey
+      title: titleInput, // Use the value from the state variable
+      subtitle: subtitleInput, // Use the value from the state variable
+      img: randomPhoto,
+    };
+
+    dispatch(add(newSurveyData));
+  };
 
   const btnStyle = {
     backgroundColor: "yellow",
@@ -77,7 +105,11 @@ export default function NewSurvey() {
                         required={field.required}
                         labelCol={{ span: 24, style: labelStyle }}
                         wrapperCol={{ span: 24 }}>
-                        <Input placeholder={field.placeholder} />
+                        <Input
+                          placeholder={field.placeholder}
+                          value={titleInput}
+                          onChange={(e) => setTitleInput(e.target.value)}
+                        />
                       </Form.Item>
                     );
                   case "textarea":
@@ -88,7 +120,11 @@ export default function NewSurvey() {
                         required={field.required}
                         labelCol={{ span: 24, style: labelStyle }}
                         wrapperCol={{ span: 24 }}>
-                        <Input.TextArea placeholder={field.placeholder} />
+                        <Input.TextArea
+                          placeholder={field.placeholder}
+                          value={subtitleInput}
+                          onChange={(e) => setSubtitleInput(e.target.value)}
+                        />
                       </Form.Item>
                     );
                   case "select":
@@ -155,7 +191,9 @@ export default function NewSurvey() {
                             },
                           ]}
                         />
-                        <Button style={{ float: "right", marginTop: "10px" }}>Save</Button>
+                        <Button onClick={handleSave} style={{ float: "right", marginTop: "10px" }}>
+                          Save
+                        </Button>
                       </div>
                     );
                   default:
@@ -182,7 +220,11 @@ export default function NewSurvey() {
                         required={field.required}
                         labelCol={{ span: 24, style: labelStyle }}
                         wrapperCol={{ span: 24 }}>
-                        <Input placeholder={field.placeholder} />
+                        <Input
+                          placeholder={field.placeholder}
+                          value={titleInput}
+                          onChange={(e) => setTitleInput(e.target.value)}
+                        />
                       </Form.Item>
                     );
                   case "textarea":
@@ -193,7 +235,11 @@ export default function NewSurvey() {
                         required={field.required}
                         labelCol={{ span: 24, style: labelStyle }}
                         wrapperCol={{ span: 24 }}>
-                        <Input.TextArea placeholder={field.placeholder} />
+                        <Input.TextArea
+                          placeholder={field.placeholder}
+                          value={subtitleInput}
+                          onChange={(e) => setSubtitleInput(e.target.value)}
+                        />
                       </Form.Item>
                     );
                   case "select":
@@ -260,7 +306,9 @@ export default function NewSurvey() {
                             },
                           ]}
                         />
-                        <Button style={{ float: "right", marginTop: "10px" }}>Save</Button>
+                        <Button onClick={handleSave} style={{ float: "right", marginTop: "10px" }}>
+                          Save
+                        </Button>
                       </div>
                     );
                   default:
