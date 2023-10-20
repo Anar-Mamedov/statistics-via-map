@@ -8,19 +8,29 @@ const { Text } = Typography;
 export default function Footer() {
   const [settings, setSettings] = useState({});
   const [footerMenu, setFooterMenu] = useState([]);
+  const [isMinimized, setIsMinimized] = useState(window.innerWidth <= 768); // Assuming 768px as the breakpoint for mobile screens
 
   useEffect(() => {
     // Directly set the imported data to state
     setSettings(settingsData);
     setFooterMenu(footerMenuData);
+    const handleResize = () => {
+      setIsMinimized(window.innerWidth <= 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
   return (
     <div
       style={{
-        height: "50px",
         display: "flex",
         alignItems: "center",
-        justifyContent: "space-between",
+        flexWrap: "wrap",
+        justifyContent: isMinimized ? "center" : "space-between", // Change based on screen size
         padding: "0 20px",
         position: "fixed",
         bottom: 0,

@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { Row, Col, Typography, Button, Avatar } from "antd";
-import { BellFilled, CaretDownOutlined, MessageFilled } from "@ant-design/icons";
+import { Row, Col, Typography, Button, Avatar, Menu, Drawer, Grid } from "antd";
+import { BellFilled, CaretDownOutlined, MessageFilled, MenuOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import settingsData from "../../../../public/data/settings.json";
 import menuData from "../../../../public/data/menu.json";
 import userData from "../../../../public/data/user.json";
+const { useBreakpoint } = Grid; // Corrected import
 
 const { Text } = Typography;
 
@@ -21,7 +22,16 @@ export default function Header() {
   const [settings, setSettings] = useState(settingsData);
   const [menuItems, setMenuItems] = useState(menuData);
   const [user, setUser] = useState(userData);
+  const [visible, setVisible] = useState(false); // State for Drawer visibility
+  const screens = useBreakpoint();
 
+  const showDrawer = () => {
+    setVisible(true);
+  };
+
+  const onClose = () => {
+    setVisible(false);
+  };
   return (
     <div
       style={{
@@ -42,34 +52,69 @@ export default function Header() {
             <Text>{settings.logo_title}</Text>
           </Link>
         </Col>
-        <Col>
-          {menuItems.map((item) => (
-            <Button type="text" key={item.id}>
-              {item.label}
-            </Button>
-          ))}
-        </Col>
-        <Col style={{ display: "flex", alignItems: "center", gap: "20px" }}>
-          <div style={{ display: "flex", justifyItems: "center", gap: "5px" }}>
-            <Button icon={<MessageFilled />} />
-            <Button icon={<BellFilled />} />
-            <Button icon={<MoonIcon />} />
-          </div>
-          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-            <div style={{ display: "flex", flexDirection: "column", gap: "0px" }}>
-              <Text style={{ fontSize: "17px", display: "flex", justifyContent: "flex-end", fontWeight: "600" }}>
-                {user.name}
-              </Text>
-              <div style={{ display: "flex", gap: "5px" }}>
-                <Text>Vote: {user.vote},</Text>
-                <Text>Survey: {user.survey}</Text>
+        {screens.md ? (
+          <>
+            <Col>
+              {menuItems.map((item) => (
+                <Button type="text" key={item.id}>
+                  {item.label}
+                </Button>
+              ))}
+            </Col>
+            <Col style={{ display: "flex", alignItems: "center", gap: "20px" }}>
+              <div style={{ display: "flex", justifyItems: "center", gap: "5px" }}>
+                <Button icon={<MessageFilled />} />
+                <Button icon={<BellFilled />} />
+                <Button icon={<MoonIcon />} />
+              </div>
+              <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                <div style={{ display: "flex", flexDirection: "column", gap: "0px" }}>
+                  <Text style={{ fontSize: "17px", display: "flex", justifyContent: "flex-end", fontWeight: "600" }}>
+                    {user.name}
+                  </Text>
+                  <div style={{ display: "flex", gap: "5px" }}>
+                    <Text>Vote: {user.vote},</Text>
+                    <Text>Survey: {user.survey}</Text>
+                  </div>
+                </div>
+                <CaretDownOutlined />
+                <Avatar src={user.img} style={{ border: "2px solid green" }} />
+              </div>
+            </Col>
+          </>
+        ) : (
+          <Button icon={<MenuOutlined />} onClick={showDrawer} />
+        )}
+      </Row>
+      <Drawer title="Menu" placement="right" closable={true} onClose={onClose} visible={visible}>
+        <Menu mode="vertical">
+          <Col
+            style={{ display: "flex", alignItems: "center", flexWrap: "wrap", justifyContent: "center", gap: "20px" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+              <Avatar src={user.img} style={{ border: "2px solid green" }} />
+              <CaretDownOutlined />
+              <div style={{ display: "flex", flexDirection: "column", gap: "0px" }}>
+                <Text style={{ fontSize: "17px", display: "flex", fontWeight: "600" }}>{user.name}</Text>
+                <div style={{ display: "flex", gap: "5px" }}>
+                  <Text>Vote: {user.vote},</Text>
+                  <Text>Survey: {user.survey}</Text>
+                </div>
               </div>
             </div>
-            <CaretDownOutlined />
-            <Avatar src={user.img} style={{ border: "2px solid green" }} />
-          </div>
-        </Col>
-      </Row>
+            <div style={{ display: "flex", justifyItems: "center", gap: "10px" }}>
+              <Button icon={<MessageFilled />} />
+              <Button icon={<BellFilled />} />
+              <Button icon={<MoonIcon />} />
+            </div>
+          </Col>
+          {menuItems.map((item) => (
+            <Menu.Item key={item.id} style={{ textAlign: "center" }}>
+              <Button type="text">{item.label}</Button>
+            </Menu.Item>
+          ))}
+          {/* ... [Add other components like Message, Bell, MoonIcon, etc. inside the Drawer] */}
+        </Menu>
+      </Drawer>
     </div>
   );
 }
