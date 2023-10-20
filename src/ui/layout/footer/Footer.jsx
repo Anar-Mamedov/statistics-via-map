@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button, Space, Typography } from "antd";
-import settingsData from "../../../../src/data/settings.json";
-import footerMenuData from "../../../../src/data/footer-menu.json";
+import settingsData from "../../../../public/data/settings.json";
+import footerMenuData from "../../../../public/data/footer-menu.json";
 
 const { Text } = Typography;
 

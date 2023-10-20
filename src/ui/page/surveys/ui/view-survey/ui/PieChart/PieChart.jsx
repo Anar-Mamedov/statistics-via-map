@@ -8,7 +8,7 @@ export default function PieChart() {
   const [chartData, setChartData] = useState(null);
 
   useEffect(() => {
-    fetch("../../../../../../../../src/data/3-item-view/all-pie-chart.json")
+    fetch("../../../../../../../../public/data/3-item-view/all-pie-chart.json")
       .then((response) => response.json())
       .then((data) => {
         const labels = data.data.map((item) => item.label);

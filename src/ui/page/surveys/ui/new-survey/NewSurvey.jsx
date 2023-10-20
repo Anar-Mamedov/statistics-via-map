@@ -25,7 +25,7 @@ export default function NewSurvey() {
   };
 
   useEffect(() => {
-    fetch("../../../../../../src/data/2-create-form/form-settings.json")
+    fetch("../../../../../../public/data/2-create-form/form-settings.json")
       .then((response) => response.json())
       .then((data) => setFormData(data))
       .catch((error) => console.error("Error fetching form data:", error));

@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { Row, Col, Typography, Button, Avatar } from "antd";
 import { BellFilled, CaretDownOutlined, MessageFilled } from "@ant-design/icons";
 import { Link } from "react-router-dom";
-import settingsData from "../../../../src/data/settings.json";
-import menuData from "../../../../src/data/menu.json";
-import userData from "../../../../src/data/user.json";
+import settingsData from "../../../../public/data/settings.json";
+import menuData from "../../../../public/data/menu.json";
+import userData from "../../../../public/data/user.json";
 
 const { Text } = Typography;
 

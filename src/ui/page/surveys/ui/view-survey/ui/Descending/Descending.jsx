@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Pie, Bar } from "react-chartjs-2";
 import Chart from "chart.js/auto";
 import { Typography } from "antd";
-import top10DescData from "../../../../../../../../src/data/3-item-view/top-10-desc.json"; // Import the JSON data directly
+import top10DescData from "../../../../../../../../public/data/3-item-view/top-10-desc.json"; // Import the JSON data directly
 
 const { Title } = Typography;
 

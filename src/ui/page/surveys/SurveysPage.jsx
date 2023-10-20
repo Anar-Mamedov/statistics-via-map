@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Card, Col, Row, Typography, Spin, Button } from "antd";
 import { useEffect, useState, useRef, useCallback } from "react";
 import { ExportOutlined, HeartFilled, LikeFilled, PlusOutlined } from "@ant-design/icons";
-import cardData from "../../../../src/data/1-main-page/card_json.json"; // Import the JSON data directly
+import cardData from "../../../../public/data/1-main-page/card_json.json"; // Import the JSON data directly
 
 const { Text } = Typography;
 

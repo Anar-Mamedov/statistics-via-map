@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Table, Typography } from "antd";
-import resultsData from "../../../../../../../../src/data/3-item-view/list-of-results.json"; // Import the JSON data directly
+import resultsData from "../../../../../../../../public/data/3-item-view/list-of-results.json"; // Import the JSON data directly
 
 const { Title } = Typography;
 
