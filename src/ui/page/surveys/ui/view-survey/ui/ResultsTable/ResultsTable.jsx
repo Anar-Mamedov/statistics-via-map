@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Table, Typography } from "antd";
+import resultsData from "../../../../../../../../src/data/3-item-view/list-of-results.json"; // Import the JSON data directly
 
 const { Title } = Typography;
 
@@ -12,13 +13,8 @@ export default function ResultsTable() {
   });
 
   useEffect(() => {
-    // Fetch the data from the JSON file
-    fetch("../../../../../../../../src/data/3-item-view/list-of-results.json")
-      .then((response) => response.json())
-      .then((data) => {
-        setTableData(data);
-      })
-      .catch((error) => console.error("Error fetching data:", error));
+    // Directly set the imported data to state
+    setTableData(resultsData);
   }, []);
 
   return (

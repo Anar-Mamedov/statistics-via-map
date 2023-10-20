@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import { Card, Col, Row, Typography, Spin, Button } from "antd";
 import { useEffect, useState, useRef, useCallback } from "react";
-import { PlusOutlined } from "@ant-design/icons";
+import { ExportOutlined, HeartFilled, LikeFilled, PlusOutlined } from "@ant-design/icons";
+import cardData from "../../../../src/data/1-main-page/card_json.json"; // Import the JSON data directly
 
 const { Text } = Typography;
 
@@ -28,15 +29,10 @@ export default function SurveysPage() {
 
   const fetchData = () => {
     setLoading(true);
-    const url = "../../../../src/data/1-main-page/card_json.json";
-    fetch(url)
-      .then((response) => response.json())
-      .then((newData) => {
-        setData((prevData) => [...prevData, ...newData]);
-        setLoading(false);
-        // setHasMore(false); // Set to false if no more data is available
-      })
-      .catch((error) => console.error("Error fetching data:", error));
+    // Process the imported data
+    setData((prevData) => [...prevData, ...cardData]);
+    setLoading(false);
+    // setHasMore(false); // Set to false if no more data is available
   };
 
   useEffect(() => {
@@ -80,6 +76,7 @@ export default function SurveysPage() {
                 cover={
                   <div style={{ position: "relative", overflow: "hidden", borderRadius: "5px" }}>
                     <img alt={item.title} src={item.img} style={{ width: "100%", borderRadius: "5px" }} />
+
                     <div
                       style={{
                         position: "absolute",
@@ -96,6 +93,23 @@ export default function SurveysPage() {
                       </Text>
                       <br />
                       <Text style={{ color: "white", fontSize: "11px" }}>{item.subtitle}</Text>
+                      <div style={{ display: "flex", gap: "3px", position: "absolute", right: "13px", bottom: "8px" }}>
+                        <HeartFilled />
+                        <ExportOutlined />
+                        <LikeFilled />
+                      </div>
+                    </div>
+                    <div
+                      style={{
+                        position: "absolute",
+                        top: "2px",
+                        right: "2px",
+                        color: "white",
+                        background: "rgba(0,0,0,0.7)",
+                        padding: "5px",
+                        borderRadius: "5px",
+                      }}>
+                      <Text style={{ color: "white", fontSize: "11px" }}>Vote:</Text>
                     </div>
                   </div>
                 }

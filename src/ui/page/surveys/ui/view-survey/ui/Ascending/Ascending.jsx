@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Pie, Bar } from "react-chartjs-2";
 import Chart from "chart.js/auto";
 import { Typography } from "antd";
+import top10AscendingData from "../../../../../../../../src/data/3-item-view/top-10-ascending.json"; // Import the JSON data directly
 
 const { Title } = Typography;
 
@@ -9,27 +10,23 @@ export default function Ascending() {
   const [chartData, setChartData] = useState(null);
 
   useEffect(() => {
-    fetch("../../../../../../../../src/data/3-item-view/top-10-ascending.json")
-      .then((response) => response.json())
-      .then((data) => {
-        const labels = data.data.map((item) => item.label);
-        const votes = data.data.map((item) => item.vote);
+    // Process the imported data
+    const labels = top10AscendingData.data.map((item) => item.label);
+    const votes = top10AscendingData.data.map((item) => item.vote);
 
-        setChartData({
-          title: data.title,
-          labels: labels,
-          datasets: [
-            {
-              label: "Votes",
-              data: votes,
-              backgroundColor: "green",
-              borderColor: "green",
-              borderWidth: 1,
-            },
-          ],
-        });
-      })
-      .catch((error) => console.error("Error fetching data:", error));
+    setChartData({
+      title: top10AscendingData.title,
+      labels: labels,
+      datasets: [
+        {
+          label: "Votes",
+          data: votes,
+          backgroundColor: "green",
+          borderColor: "green",
+          borderWidth: 1,
+        },
+      ],
+    });
   }, []);
 
   return (

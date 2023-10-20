@@ -1,9 +1,18 @@
 import { useEffect, useState } from "react";
 import { Row, Col, Typography, Button, Avatar } from "antd";
-import { CaretDownOutlined } from "@ant-design/icons";
+import { BellFilled, CaretDownOutlined, MessageFilled } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 
 const { Text } = Typography;
+
+const MoonIcon = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path
+      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.9 16.39c-2.33 1.34-5.26 0.9-7.19-1.13-1.94-2.02-2.37-5.03-1.13-7.45 1.17-2.25 3.63-3.67 6.32-3.67 3.5 0 6.36 2.86 6.36 6.36 0 2.69-1.42 5.15-3.67 6.32-.86.45-1.79.69-2.69.57z"
+      fill="currentColor"
+    />
+  </svg>
+);
 
 export default function Header() {
   const [settings, setSettings] = useState({});
@@ -51,18 +60,25 @@ export default function Header() {
             </Button>
           ))}
         </Col>
-        <Col style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-          <div style={{ display: "flex", flexDirection: "column", gap: "0px" }}>
-            <Text style={{ fontSize: "17px", display: "flex", justifyContent: "flex-end", fontWeight: "600" }}>
-              {user.name}
-            </Text>
-            <div style={{ display: "flex", gap: "5px" }}>
-              <Text>Vote: {user.vote},</Text>
-              <Text>Survey: {user.survey}</Text>
-            </div>
+        <Col style={{ display: "flex", alignItems: "center", gap: "20px" }}>
+          <div style={{ display: "flex", justifyItems: "center", gap: "5px" }}>
+            <Button icon={<MessageFilled />} />
+            <Button icon={<BellFilled />} />
+            <Button icon={<MoonIcon />} />
           </div>
-          <CaretDownOutlined />
-          <Avatar src={user.img} style={{ border: "2px solid green" }} />
+          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: "0px" }}>
+              <Text style={{ fontSize: "17px", display: "flex", justifyContent: "flex-end", fontWeight: "600" }}>
+                {user.name}
+              </Text>
+              <div style={{ display: "flex", gap: "5px" }}>
+                <Text>Vote: {user.vote},</Text>
+                <Text>Survey: {user.survey}</Text>
+              </div>
+            </div>
+            <CaretDownOutlined />
+            <Avatar src={user.img} style={{ border: "2px solid green" }} />
+          </div>
         </Col>
       </Row>
     </div>
