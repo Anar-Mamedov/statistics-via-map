@@ -127,10 +127,24 @@ export default function Header() {
             </Col>
           </>
         ) : (
-          <Button icon={<MenuOutlined />} onClick={showDrawer} />
+          <Button
+            icon={<MenuOutlined style={{ color: "#fff" }} />}
+            onClick={showDrawer}
+            style={{
+              backgroundColor: theme === "dark" ? "#333" : "#fff", // dark background for dark theme, white for light theme
+              borderColor: theme === "dark" ? "#666" : "#d9d9d9", // adjust as needed
+              color: "#fff", // white text color
+            }}
+          />
         )}
       </Row>
-      <Drawer title="Menu" placement="right" closable={true} onClose={onClose} visible={visible}>
+      <Drawer
+        title="Menu"
+        placement="right"
+        closable={true}
+        onClose={onClose}
+        visible={visible}
+        className={theme === "dark" ? "dark-drawer" : ""}>
         <Menu mode="vertical">
           <Col
             style={{ display: "flex", alignItems: "center", flexWrap: "wrap", justifyContent: "center", gap: "20px" }}>
@@ -146,9 +160,28 @@ export default function Header() {
               </div>
             </div>
             <div style={{ display: "flex", justifyItems: "center", gap: "15px" }}>
-              <Button icon={<MessageFilled />} />
-              <Button icon={<BellFilled />} />
-              <Button icon={<MoonIcon />} onClick={toggleTheme} />
+              <Button
+                icon={<MessageFilled style={{ color: theme === "light" ? "#333333" : "#ffffff" }} />}
+                style={{
+                  backgroundColor: theme === "light" ? "#ffffff" : "#333333",
+                  borderColor: theme === "light" ? "#d9d9d9" : "#666666",
+                }}
+              />
+              <Button
+                icon={<BellFilled style={{ color: theme === "light" ? "#333333" : "#ffffff" }} />}
+                style={{
+                  backgroundColor: theme === "light" ? "#ffffff" : "#333333",
+                  borderColor: theme === "light" ? "#d9d9d9" : "#666666",
+                }}
+              />
+              <Button
+                icon={<MoonIcon color={theme === "light" ? "#333333" : "#ffffff"} />}
+                onClick={toggleTheme}
+                style={{
+                  backgroundColor: theme === "light" ? "#ffffff" : "#333333",
+                  borderColor: theme === "light" ? "#d9d9d9" : "#666666",
+                }}
+              />
             </div>
           </Col>
           {menuItems.map((item) => (

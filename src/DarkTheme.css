@@ -209,4 +209,48 @@ body.dark .custom-button:hover span {
   color: #eee !important; /* Adjust to your desired hover icon color */
 }
 
-/* If you have other Ant Design components, you can add similar styles for them */
+/* Styles for the Drawer in dark mode */
+.dark-drawer .ant-drawer-content {
+  background-color: #333; /* Adjust this to your preferred dark background color */
+}
+
+.dark-drawer .ant-drawer-header {
+  background-color: #444; /* Adjust this to your preferred dark header color */
+  color: #fff; /* Text color for the header */
+}
+
+.dark-drawer .ant-drawer-title {
+  color: #fff; /* Text color for the title */
+}
+
+.dark-drawer .ant-drawer-close {
+  color: #fff; /* Color for the close icon */
+}
+
+.dark-drawer .ant-menu-vertical .ant-menu-item {
+  background-color: #333; /* Background color for menu items */
+  color: #fff; /* Text color for menu items */
+}
+
+.dark-drawer .ant-menu-vertical .ant-menu-item:hover {
+  background-color: #444; /* Background color for menu items on hover */
+}
+.dark-drawer .ant-drawer-body {
+  background-color: #333; /* Adjust this to your preferred dark background color */
+  color: #fff; /* Text color for the content inside the drawer body */
+}
+
+.dark-drawer .ant-menu.ant-menu-light {
+  background-color: #333; /* Adjust this to your preferred dark background color */
+  color: #fff; /* Text color for the content inside the menu */
+}
+
+.dark-drawer .ant-menu-item {
+  color: #fff; /* Text color for the menu items */
+}
+
+.dark-drawer .ant-menu-item:hover,
+.dark-drawer .ant-menu-item-selected {
+  background-color: #444; /* Adjust this to your preferred hover/selected background color */
+  color: #fff; /* Text color for the hovered/selected menu items */
+}
