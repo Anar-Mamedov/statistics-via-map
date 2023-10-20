@@ -1,5 +1,5 @@
 // App.jsx
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Footer from "./ui/layout/footer/Footer";
@@ -9,7 +9,24 @@ import NewSurvey from "./ui/page/surveys/ui/new-survey/NewSurvey"; // Import you
 import ViewSurvey from "./ui/page/surveys/ui/view-survey/ViewSurvey";
 
 function App() {
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState("dark");
+
+  useEffect(() => {
+    document.body.classList.add("dark");
+  }, []);
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) {
+      setTheme(savedTheme);
+      document.body.classList.add(savedTheme);
+      document.body.classList.remove(savedTheme === "dark" ? "light" : "dark");
+    } else {
+      // Default to dark mode if no theme is saved in local storage
+      setTheme("dark");
+      document.body.classList.add("dark");
+    }
+  }, []);
 
   return (
     <Router>

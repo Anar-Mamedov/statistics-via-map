@@ -47,10 +47,12 @@ export default function Header() {
       setTheme("dark");
       document.body.classList.add("dark");
       document.body.classList.remove("light");
+      localStorage.setItem("theme", "dark");
     } else {
       setTheme("light");
       document.body.classList.add("light");
       document.body.classList.remove("dark");
+      localStorage.setItem("theme", "light");
     }
   };
 
