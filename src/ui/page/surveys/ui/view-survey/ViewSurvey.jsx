@@ -34,7 +34,6 @@ export default function ViewSurvey() {
               overflowY: "scroll",
               maxHeight: "calc(100vh - 350px)",
               padding: "0px 20px 70px 20px",
-              border: "1px solid red",
             }}>
             <Descending />
             <Ascending />
