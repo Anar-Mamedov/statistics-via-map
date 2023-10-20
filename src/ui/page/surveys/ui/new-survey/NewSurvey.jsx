@@ -1,5 +1,6 @@
 // NewSurvey.jsx
 
+import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { Input, Form, Select, Button, Table, ColorPicker, Space, Col, Row } from "antd";
 import { DeleteFilled, EditFilled } from "@ant-design/icons";
@@ -19,14 +20,36 @@ export default function NewSurvey() {
   const [titleInput, setTitleInput] = useState("");
   const [subtitleInput, setSubtitleInput] = useState("");
 
+  const navigate = useNavigate();
+
+  const [fieldErrors, setFieldErrors] = useState({
+    title: false,
+    subtitle: false,
+    // Add other fields here if needed
+  });
+
   const predefinedPhotos = [
-    "https://i.ibb.co/Q8Mwpvr/animg3.png",
+    "https://i.ibb.co/L5bg1Kn/animg1.png",
     "https://i.ibb.co/SxKpgYY/animg2.png",
     "https://i.ibb.co/Q8Mwpvr/animg3.png",
     "https://i.ibb.co/0qQmHw4/animg4.png",
   ];
 
   const handleSave = () => {
+    // Validation checks
+    const errors = {
+      title: !titleInput.trim(),
+      subtitle: !subtitleInput.trim(),
+      // Add other fields here if needed
+    };
+
+    setFieldErrors(errors);
+
+    // If any field has an error, return early and don't save the card
+    if (Object.values(errors).some((error) => error)) {
+      return;
+    }
+
     const randomPhoto = predefinedPhotos[Math.floor(Math.random() * predefinedPhotos.length)];
     // Here, you'll gather the data from the form.
     // For demonstration purposes, I'm using a static example:
@@ -38,6 +61,10 @@ export default function NewSurvey() {
     };
 
     dispatch(add(newSurveyData));
+
+    setTimeout(() => {
+      navigate("/");
+    }, 200);
   };
 
   const btnStyle = {
@@ -104,11 +131,15 @@ export default function NewSurvey() {
                         label={field.label}
                         required={field.required}
                         labelCol={{ span: 24, style: labelStyle }}
-                        wrapperCol={{ span: 24 }}>
+                        wrapperCol={{ span: 24 }}
+                        hasFeedback
+                        validateStatus={fieldErrors.title ? "error" : ""}
+                        help={fieldErrors.title ? "Title is required" : null}>
                         <Input
                           placeholder={field.placeholder}
                           value={titleInput}
                           onChange={(e) => setTitleInput(e.target.value)}
+                          style={{ borderColor: fieldErrors.title ? "red" : undefined }}
                         />
                       </Form.Item>
                     );
@@ -119,11 +150,15 @@ export default function NewSurvey() {
                         label={field.label}
                         required={field.required}
                         labelCol={{ span: 24, style: labelStyle }}
-                        wrapperCol={{ span: 24 }}>
+                        wrapperCol={{ span: 24 }}
+                        hasFeedback
+                        validateStatus={fieldErrors.subtitle ? "error" : ""}
+                        help={fieldErrors.subtitle ? "Subtitle is required" : null}>
                         <Input.TextArea
                           placeholder={field.placeholder}
                           value={subtitleInput}
                           onChange={(e) => setSubtitleInput(e.target.value)}
+                          style={{ borderColor: fieldErrors.subtitle ? "red" : undefined }}
                         />
                       </Form.Item>
                     );
@@ -134,10 +169,16 @@ export default function NewSurvey() {
                         label={field.label}
                         required={field.required}
                         labelCol={{ span: 24, style: labelStyle }}
-                        wrapperCol={{ span: 24 }}>
+                        wrapperCol={{ span: 24 }}
+                        hasFeedback
+                        validateStatus={fieldErrors.title ? "error" : ""}
+                        help={fieldErrors.title ? "Title is required" : null}>
                         <Select>
                           {field.data.map((option) => (
-                            <Select.Option key={option.value} value={option.value}>
+                            <Select.Option
+                              key={option.value}
+                              value={option.value}
+                              style={{ borderColor: fieldErrors.subtitle ? "red" : undefined }}>
                               {option.label}
                             </Select.Option>
                           ))}
@@ -219,11 +260,15 @@ export default function NewSurvey() {
                         label={field.label}
                         required={field.required}
                         labelCol={{ span: 24, style: labelStyle }}
-                        wrapperCol={{ span: 24 }}>
+                        wrapperCol={{ span: 24 }}
+                        hasFeedback
+                        validateStatus={fieldErrors.title ? "error" : ""}
+                        help={fieldErrors.title ? "Title is required" : null}>
                         <Input
                           placeholder={field.placeholder}
                           value={titleInput}
                           onChange={(e) => setTitleInput(e.target.value)}
+                          style={{ borderColor: fieldErrors.title ? "red" : undefined }}
                         />
                       </Form.Item>
                     );
@@ -234,11 +279,15 @@ export default function NewSurvey() {
                         label={field.label}
                         required={field.required}
                         labelCol={{ span: 24, style: labelStyle }}
-                        wrapperCol={{ span: 24 }}>
+                        wrapperCol={{ span: 24 }}
+                        hasFeedback
+                        validateStatus={fieldErrors.subtitle ? "error" : ""}
+                        help={fieldErrors.subtitle ? "Subtitle is required" : null}>
                         <Input.TextArea
                           placeholder={field.placeholder}
                           value={subtitleInput}
                           onChange={(e) => setSubtitleInput(e.target.value)}
+                          style={{ borderColor: fieldErrors.subtitle ? "red" : undefined }}
                         />
                       </Form.Item>
                     );
@@ -249,7 +298,10 @@ export default function NewSurvey() {
                         label={field.label}
                         required={field.required}
                         labelCol={{ span: 24, style: labelStyle }}
-                        wrapperCol={{ span: 24 }}>
+                        wrapperCol={{ span: 24 }}
+                        hasFeedback
+                        validateStatus={fieldErrors.title ? "error" : ""}
+                        help={fieldErrors.title ? "Title is required" : null}>
                         <Select>
                           {field.data.map((option) => (
                             <Select.Option key={option.value} value={option.value}>
