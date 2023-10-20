@@ -1,35 +1,29 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Input, Form, Select, Button, Table, ColorPicker, Space, Col, Row } from "antd";
 import { DeleteFilled, EditFilled } from "@ant-design/icons";
 import ThematicMapPage from "../map/ThematicMapPage";
+import formDataJson from "../../../../../../public/data/2-create-form/form-settings.json"; // Directly import the JSON data
 
 export default function NewSurvey() {
-  const [formData, setFormData] = useState(null);
+  const [formData, setFormData] = useState(formDataJson); // Use the imported JSON data directly
   const [answers, setAnswers] = useState([]);
   const [currentColor, setCurrentColor] = useState("#000000");
   const [currentText, setCurrentText] = useState("");
   const [validationError, setValidationError] = useState({ text: false, color: false });
 
   const btnStyle = {
-    backgroundColor: "yellow", // Set to constant yellow
-    color: "black", // Set to constant black
-    borderColor: validationError.color ? "red" : undefined, // Set border color to red if there's a validation error for color
+    backgroundColor: "yellow",
+    color: "black",
+    borderColor: validationError.color ? "red" : undefined,
   };
   let colorError = currentColor === "#000000";
 
   const formItemStyle = {
-    marginBottom: "10px", // Adjust this value to your preference
+    marginBottom: "10px",
   };
   const labelStyle = {
-    marginBottom: "-10px", // Adjust this value to reduce the space
+    marginBottom: "-10px",
   };
-
-  useEffect(() => {
-    fetch("../../../../../../public/data/2-create-form/form-settings.json")
-      .then((response) => response.json())
-      .then((data) => setFormData(data))
-      .catch((error) => console.error("Error fetching form data:", error));
-  }, []);
 
   const handleAddToList = () => {
     let textError = !currentText.trim();

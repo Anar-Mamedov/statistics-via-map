@@ -1,22 +1,10 @@
 import React, { useEffect, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
+import geojsonData from "../../../../../../public/data/istanbul-nufus-geojson.json"; // Directly import the renamed .json file
 
 const ThematicMapPage = () => {
-  const [geojsonData, setGeojsonData] = useState(null);
-
   useEffect(() => {
-    // Fetch the geojson data
-    fetch("../../../../../../public/istanbul-nufus-geojson.geojson") // Adjust the path if needed
-      .then((response) => response.json())
-      .then((data) => {
-        setGeojsonData(data);
-      });
-  }, []);
-
-  useEffect(() => {
-    if (!geojsonData) return; // Wait until geojson data is loaded
-
     mapboxgl.accessToken = "pk.eyJ1IjoiYW5hcjI2MjciLCJhIjoiY2xueGN1azdpMGZheTJrbGVvbndxMnBqYyJ9.Nft7lgWBldqlwK62Gfqpbw";
 
     const map = new mapboxgl.Map({
@@ -29,7 +17,7 @@ const ThematicMapPage = () => {
     map.on("load", () => {
       map.addSource("istanbul-nufus", {
         type: "geojson",
-        data: geojsonData,
+        data: geojsonData, // Use the directly imported data
       });
 
       map.addLayer({
@@ -43,7 +31,7 @@ const ThematicMapPage = () => {
         },
       });
     });
-  }, [geojsonData]);
+  }, []);
 
   return <div id="map" style={{ width: "100%", height: "100%" }} />;
 };
