@@ -101,7 +101,7 @@ export default function Header() {
                 </div>
               </div>
             </div>
-            <div style={{ display: "flex", justifyItems: "center", gap: "10px" }}>
+            <div style={{ display: "flex", justifyItems: "center", gap: "15px" }}>
               <Button icon={<MessageFilled />} />
               <Button icon={<BellFilled />} />
               <Button icon={<MoonIcon />} />
