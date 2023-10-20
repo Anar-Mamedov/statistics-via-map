@@ -7,7 +7,7 @@ const ThematicMapPage = () => {
 
   useEffect(() => {
     // Fetch the geojson data
-    fetch("../../../../../../public/data/istanbul-nufus-geojson.geojson") // Adjust the path if needed
+    fetch("../../../../../../public/istanbul-nufus-geojson.geojson") // Adjust the path if needed
       .then((response) => response.json())
       .then((data) => {
         setGeojsonData(data);
