@@ -128,12 +128,11 @@ export default function Header() {
           </>
         ) : (
           <Button
-            icon={<MenuOutlined style={{ color: "#fff" }} />}
+            icon={<MenuOutlined style={{ color: theme === "dark" ? "#fff" : "#333" }} />}
             onClick={showDrawer}
             style={{
               backgroundColor: theme === "dark" ? "#333" : "#fff", // dark background for dark theme, white for light theme
               borderColor: theme === "dark" ? "#666" : "#d9d9d9", // adjust as needed
-              color: "#fff", // white text color
             }}
           />
         )}
