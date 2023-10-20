@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Button, Space, Typography } from "antd";
+import settingsData from "../../../../src/data/settings.json";
+import footerMenuData from "../../../../src/data/footer-menu.json";
+
 const { Text } = Typography;
 
 export default function Footer() {
@@ -7,17 +10,9 @@ export default function Footer() {
   const [footerMenu, setFooterMenu] = useState([]);
 
   useEffect(() => {
-    // Fetch settings.json
-    fetch("../../../../src/data/settings.json")
-      .then((response) => response.json())
-      .then((data) => setSettings(data))
-      .catch((error) => console.error("Error fetching settings:", error));
-
-    // Fetch footer-menu.json
-    fetch("../../../../src/data/footer-menu.json")
-      .then((response) => response.json())
-      .then((data) => setFooterMenu(data))
-      .catch((error) => console.error("Error fetching footer menu:", error));
+    // Directly set the imported data to state
+    setSettings(settingsData);
+    setFooterMenu(footerMenuData);
   }, []);
   return (
     <div

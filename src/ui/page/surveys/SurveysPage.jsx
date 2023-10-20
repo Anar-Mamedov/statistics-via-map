@@ -9,7 +9,9 @@ const { Text } = Typography;
 export default function SurveysPage() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [hasMore, setHasMore] = useState(true); // Indicates if more data is available
+  const [hasMore, setHasMore] = useState(true);
+  const [currentChunkIndex, setCurrentChunkIndex] = useState(0);
+  const CHUNK_SIZE = 10;
 
   const observer = useRef();
   const lastCardRef = useCallback(
@@ -18,7 +20,6 @@ export default function SurveysPage() {
       if (observer.current) observer.current.disconnect();
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting && hasMore) {
-          // Load more data here
           fetchData();
         }
       });
@@ -29,10 +30,17 @@ export default function SurveysPage() {
 
   const fetchData = () => {
     setLoading(true);
-    // Process the imported data
-    setData((prevData) => [...prevData, ...cardData]);
-    setLoading(false);
-    // setHasMore(false); // Set to false if no more data is available
+    setTimeout(() => {
+      const start = currentChunkIndex * CHUNK_SIZE;
+      const end = start + CHUNK_SIZE;
+      const chunk = cardData.slice(start, end);
+      if (chunk.length < CHUNK_SIZE) {
+        setHasMore(false);
+      }
+      setData((prevData) => [...prevData, ...chunk]);
+      setCurrentChunkIndex((prevIndex) => prevIndex + 1);
+      setLoading(false);
+    }, 1000);
   };
 
   useEffect(() => {
@@ -120,7 +128,7 @@ export default function SurveysPage() {
         ))}
       </Row>
 
-      {loading && (
+      {loading && hasMore && (
         <div style={{ display: "flex", justifyContent: "center", marginTop: "20px", marginBottom: "50px" }}>
           <Spin tip="Loading..." />
         </div>

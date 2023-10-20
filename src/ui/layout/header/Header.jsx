@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { Row, Col, Typography, Button, Avatar } from "antd";
 import { BellFilled, CaretDownOutlined, MessageFilled } from "@ant-design/icons";
 import { Link } from "react-router-dom";
+import settingsData from "../../../../src/data/settings.json";
+import menuData from "../../../../src/data/menu.json";
+import userData from "../../../../src/data/user.json";
 
 const { Text } = Typography;
 
@@ -15,23 +18,9 @@ const MoonIcon = () => (
 );
 
 export default function Header() {
-  const [settings, setSettings] = useState({});
-  const [menuItems, setMenuItems] = useState([]);
-  const [user, setUser] = useState({});
-
-  useEffect(() => {
-    fetch("../../../../src/data/settings.json")
-      .then((response) => response.json())
-      .then((data) => setSettings(data));
-
-    fetch("../../../../src/data/menu.json")
-      .then((response) => response.json())
-      .then((data) => setMenuItems(data));
-
-    fetch("../../../../src/data/user.json")
-      .then((response) => response.json())
-      .then((data) => setUser(data));
-  }, []);
+  const [settings, setSettings] = useState(settingsData);
+  const [menuItems, setMenuItems] = useState(menuData);
+  const [user, setUser] = useState(userData);
 
   return (
     <div

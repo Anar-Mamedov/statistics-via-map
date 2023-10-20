@@ -1,10 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
 const ThematicMapPage = () => {
+  const [geojsonData, setGeojsonData] = useState(null);
+
   useEffect(() => {
-    mapboxgl.accessToken = "pk.eyJ1IjoiYW5hcjI2MjciLCJhIjoiY2xueGN1azdpMGZheTJrbGVvbndxMnBqYyJ9.Nft7lgWBldqlwK62Gfqpbw"; // Replace with your Mapbox access token
+    // Fetch the geojson data
+    fetch("../../../../../../src/data/istanbul-nufus-geojson.geojson")
+      .then((response) => response.json())
+      .then((data) => {
+        setGeojsonData(data);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (!geojsonData) return; // Wait until geojson data is loaded
+
+    mapboxgl.accessToken = "pk.eyJ1IjoiYW5hcjI2MjciLCJhIjoiY2xueGN1azdpMGZheTJrbGVvbndxMnBqYyJ9.Nft7lgWBldqlwK62Gfqpbw";
 
     const map = new mapboxgl.Map({
       container: "map",
@@ -16,7 +29,7 @@ const ThematicMapPage = () => {
     map.on("load", () => {
       map.addSource("istanbul-nufus", {
         type: "geojson",
-        data: "../../../../../../src/data/istanbul-nufus-geojson.geojson", // Replace with the correct path to your geojson file
+        data: geojsonData,
       });
 
       map.addLayer({
@@ -25,20 +38,12 @@ const ThematicMapPage = () => {
         source: "istanbul-nufus",
         layout: {},
         paint: {
-          "fill-color": [
-            "interpolate",
-            ["linear"],
-            ["get", "Nufus_2020"],
-            0,
-            "yellow", // Assuming 0 is the minimum population
-            500000,
-            "red", // Assuming 500,000 is the maximum population
-          ],
+          "fill-color": ["interpolate", ["linear"], ["get", "Nufus_2020"], 0, "yellow", 500000, "red"],
           "fill-opacity": 0.8,
         },
       });
     });
-  }, []);
+  }, [geojsonData]);
 
   return <div id="map" style={{ width: "100%", height: "100%" }} />;
 };
