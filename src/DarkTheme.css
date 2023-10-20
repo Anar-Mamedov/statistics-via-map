@@ -1,0 +1,49 @@
+/* Light Mode */
+body.light {
+  background-color: #ffffff;
+  color: #333333;
+}
+
+/* Dark Mode */
+body.dark {
+  background-color: #333333;
+  color: #ffffff;
+}
+
+.header-light {
+  background-color: #f9f9f9 !important;
+  color: #333333 !important;
+}
+
+.header-dark {
+  background-color: #333333 !important;
+  color: #ffffff !important;
+}
+
+/* Light Mode */
+body.light,
+body.light .ant-typography,
+body.light .ant-btn-text,
+body.light .ant-menu-item {
+  color: #333333;
+}
+
+/* Dark Mode */
+body.dark,
+body.dark .ant-typography,
+body.dark .ant-btn-text,
+body.dark .ant-menu-item {
+  color: #ffffff;
+}
+
+.ant-btn:hover,
+.ant-btn:focus {
+  background-color: #fff; /* This is the default background color */
+  border-color: #d9d9d9; /* This is the default border color */
+}
+
+.ant-btn-icon-only:hover,
+.ant-btn-icon-only:focus {
+  background-color: #fff; /* Adjust as needed */
+  border-color: #d9d9d9; /* Adjust as needed */
+}

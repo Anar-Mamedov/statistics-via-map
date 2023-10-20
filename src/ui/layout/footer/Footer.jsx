@@ -1,9 +1,10 @@
 // Footer.jsx
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Button, Space, Typography } from "antd";
 import settingsData from "../../../../public/data/settings.json";
 import footerMenuData from "../../../../public/data/footer-menu.json";
+import { ThemeContext } from "../../../../src/App";
 
 const { Text } = Typography;
 
@@ -11,6 +12,7 @@ export default function Footer() {
   const [settings, setSettings] = useState({});
   const [footerMenu, setFooterMenu] = useState([]);
   const [isMinimized, setIsMinimized] = useState(window.innerWidth <= 768); // Assuming 768px as the breakpoint for mobile screens
+  const { theme } = useContext(ThemeContext);
 
   useEffect(() => {
     // Directly set the imported data to state
@@ -26,20 +28,21 @@ export default function Footer() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
   return (
     <div
       style={{
         display: "flex",
         alignItems: "center",
         flexWrap: "wrap",
-        justifyContent: isMinimized ? "center" : "space-between", // Change based on screen size
+        justifyContent: isMinimized ? "center" : "space-between",
         padding: "0 20px",
         position: "fixed",
         bottom: 0,
         left: 0,
         right: 0,
-        backgroundColor: "rgba(249, 249, 249, 0.95)", // Optional: to give a background color
-        boxShadow: "0px -2px 10px rgba(0, 0, 0, 0.1)", // Optional: to give a slight shadow effect
+        backgroundColor: theme === "light" ? "rgba(249, 249, 249, 0.95)" : "#333333", // Conditional background color
+        boxShadow: "0px -2px 10px rgba(0, 0, 0, 0.1)",
       }}>
       <Text style={{ fontSize: "11px" }}>Mail: {settings.mail}</Text>
       <Space>
